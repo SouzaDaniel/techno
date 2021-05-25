@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Techno</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <img src="./assets/img/techno.svg" alt="logo" class="logo" />
+
+        <div class="cart-menu" @click="cartModalOpen = true">
+          {{cartItemsPrice | numberToPrice}} | {{cartItemsTotal}}
+        </div>
+      </header>
+
+      <main>
+        <section class="products">
+          <div class="product" v-for="product in products" :key="product.id">
+            <img :src="product.img" :alt="product.name" class="product-image" />
+
+            <div class="product-info" @click="openProductModal(product.id)">
+              <span class="product-price">
+                {{product.price | numberToPrice}}
+              </span>
+              <h2 class="product-title">{{product.name}}</h2>
+            </div>
+          </div>
+        </section>
+
+        <section class="modal" v-if="product" @click="closeProductModal">
+          <div class="modal-container">
+            <div class="modal-img">
+              <img :src="product.img" :alt="product.name" />
+            </div>
+
+            <div class="modal-data">
+              <button @click="closeProductModal" class="modal-close">X</button>
+
+              <span class="modal-price">{{product.price | numberToPrice}}</span>
+              <h2 class="modal-title">{{product.name}}</h2>
+              <p class="modal-description">{{product.description}}</p>
+              <p>{{product.stock}}</p>
+              <button
+                class="modal-btn"
+                @click="addItemToCart"
+                :disabled="product.stock === 0"
+              >
+                {{product.stock === 0 ? "Produto esgotado" : "Adicionar item"}}
+              </button>
+            </div>
+
+            <div class="reviews">
+              <h2 class="reviews-title">Avaliações</h2>
+
+              <ul>
+                <li v-for="review in product.reviews" class="review">
+                  <p class="review-description">{{review.description}}</p>
+                  <p class="review-user">
+                    {{review.name}} | {{review.stars}} estrelas
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="cart-modal"
+          v-if="cartModalOpen"
+          @click="closeCartModal"
+        >
+          <div class="cart-container">
+            <button @click="cartModalOpen = false" class="modal-close">
+              X
+            </button>
+            <h2 class="cart-title">Carrinho</h2>
+
+            <div v-if="cartItemsTotal">
+              <ul class="cart-list">
+                <li v-for="item, index in cart" class="cart-item">
+                  <p>{{item.name}}</p>
+                  <p class="cart-price">{{item.price | numberToPrice}}</p>
+                  <button
+                    class="cart-remove"
+                    @click="removeItemFromCart(index)"
+                  >
+                    X
+                  </button>
+                </li>
+              </ul>
+              <p class="cart-total">{{cartItemsPrice | numberToPrice}}</p>
+              <button class="cart-buy">Finalizar compra</button>
+            </div>
+            <p v-else>O carrinho está vazio</p>
+          </div>
+        </section>
+      </main>
+
+      <div v-if="alertActive" class="alert">
+        <p class="alert-message">{{alertMessage}}</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
