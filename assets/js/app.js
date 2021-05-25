@@ -103,7 +103,7 @@ const vm = new Vue({
     this.products = products;
 
     const cart = JSON.parse(localStorage.getItem("cart"));
-    this.cart = cart;
+    cart && (this.cart = cart);
 
     this.router();
   },
