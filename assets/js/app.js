@@ -23,13 +23,13 @@ const vm = new Vue({
   },
   methods: {
     async fetchProducts() {
-      const res = await fetch("./../../api/produtos.json");
+      const res = await fetch("https://souzadaniel.github.io/techno/api/produtos.json");
       const data = await res.json();
 
       return data;
     },
     async fetchProduct(id) {
-      const res = await fetch(`./../../api/produtos/${id}/dados.json`);
+      const res = await fetch(`https://souzadaniel.github.io/techno/api/produtos/${id}/dados.json`);
       const data = await res.json();
 
       return data;
