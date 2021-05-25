@@ -4,7 +4,7 @@
   "price": 1299,
   "description": "Todas estas questões, devidamente ponderadas, levantam dúvidas sobre se a necessidade de renovação processual causa impacto indireto na reavaliação do orçamento setorial.",
   "stock": 3,
-  "img": "./api/produtos/smartphone/smartphone-foto.jpg",
+  "img": "https://souzadaniel.github.io/techno/api/produtos/smartphone/smartphone-foto.jpg",
   "reviews": [
     {
       "name": "Rogério",
